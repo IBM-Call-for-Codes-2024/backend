@@ -1,6 +1,21 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { supabase } = require('../supabaseClient');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+
+// Redirect to Google for authentication
+exports.googleAuth = passport.authenticate('google', {
+  scope: ['profile', 'email'],
+});
+
+// Handle the callback from Google
+exports.googleAuthCallback = (req, res) => {
+  // Successful authentication, generate JWT token
+  const token = jwt.sign({ userId: req.user.id }, process.env.JWT_SECRET);
+  res.redirect(`https://frontend-csre.onrender.com?token=${token}`);
+};
+
 
 // User signup
 exports.signup = async (req, res) => {

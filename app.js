@@ -7,6 +7,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const imageRoutes = require('./routes/image');
 const chatRoutes = require('./routes/chat');
+const passport = require('./passport');
 
 // Initialize Express app
 const app = express();
@@ -15,6 +16,8 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Route handlers
 app.use('/auth', authRoutes);
