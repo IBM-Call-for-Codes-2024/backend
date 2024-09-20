@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { supabase } = require('../supabaseClient');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
+const passport = require('./passport');
 
 // Redirect to Google for authentication
 exports.googleAuth = passport.authenticate('google', {
