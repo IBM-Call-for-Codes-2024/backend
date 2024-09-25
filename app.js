@@ -7,7 +7,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const imageRoutes = require('./routes/image');
 const chatRoutes = require('./routes/chat');
-const passport = require('./passport');
+const userRoutes = require('./routes/userRoutes');
 
 // Initialize Express app
 const app = express();
@@ -16,13 +16,12 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Route handlers
 app.use('/auth', authRoutes);
 app.use('/upload-image', imageRoutes);
 app.use('/chat', chatRoutes);
+app.use('/user', userRoutes);
 
 // Start server
 app.listen(PORT, () => {
