@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth');
 const imageRoutes = require('./routes/image');
 const chatRoutes = require('./routes/chat');
 const userRoutes = require('./routes/userRoutes');
+const mapRoutes = require('./routes/map');
 
 // Initialize Express app
 const app = express();
@@ -22,6 +23,7 @@ app.use('/auth', authRoutes);
 app.use('/upload-image', imageRoutes);
 app.use('/chat', chatRoutes);
 app.use('/user', userRoutes);
+app.use('/map', mapRoutes);
 
 // Start server
 app.listen(PORT, () => {
