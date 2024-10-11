@@ -30,87 +30,139 @@ const sendEmailReport = async (req, res) => {
 
     // Import your email template here (could be generated or a pre-built string)
     const emailTemplate = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your HealthLens Health Report</title>
-      </head>
-      <body style="background-color: #f6f9fc; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          <div style="background-color: #4f46e5; padding: 40px 20px; text-align: center;">
-            <h1 style="color: #ffffff; font-size: 28px; margin: 0;">Your HealthLens Health Report</h1>
-          </div>
-          <div style="padding: 40px 20px;">
-            <p style="font-size: 18px; color: #333333; line-height: 1.6;">Hello ${firstName},</p>
-            <p style="font-size: 16px; color: #666666; line-height: 1.6;">We hope this email finds you well. Here's a cozy summary of your health information and recent activity on HealthLens:</p>
+        <title>HealthLens Health Report</title>
+    </head>
+    <body style="background-color: #f5f3ff; font-family: Arial, sans-serif; margin: 0; padding: 40px 0; color: #333333;">
+        <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <tr>
+                <td style="padding: 40px;">
+                    <table cellpadding="0" cellspacing="0" style="width: 100%;">
+                        <tr>
+                            <td>
+                                <img src="/placeholder.svg?height=40&width=40" alt="HealthLens Logo" style="width: 40px; height: 40px;" />
+                            </td>
+                            <td style="text-align: right;">
+                                <h1 style="color: #4338ca; font-size: 24px; margin: 0;">Health Report</h1>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <p style="font-size: 14px; color: #6366f1; margin-top: 20px; margin-bottom: 30px;">
+                        Track your health journey with HealthLens. <a href="#" style="color: #4338ca; text-decoration: none;">View your dashboard</a>
+                    </p>
 
-            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 20px; margin-top: 30px;">
-              <h2 style="color: #4f46e5; font-size: 22px; margin-top: 0;">Personal Information</h2>
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;"><strong>Name:</strong></td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;">${firstName} ${lastName}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;"><strong>Email:</strong></td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;">${email}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;"><strong>Username:</strong></td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;">${username}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;"><strong>Height:</strong></td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;">${height} cm</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;"><strong>Weight:</strong></td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #e0e7ff;">${weight} kg</td>
-                </tr>
-                <tr>
-                  <td style="padding: 10px 0;"><strong>Sex:</strong></td>
-                  <td style="padding: 10px 0;">${sex}</td>
-                </tr>
-              </table>
-            </div>
+                    <table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <p style="font-size: 14px; color: #6366f1; margin: 0 0 5px 0;">HEALTHLENS ID</p>
+                                <p style="font-size: 14px; margin: 0 0 15px 0;">john.doe@example.com</p>
+                                <p style="font-size: 14px; color: #6366f1; margin: 0 0 5px 0;">REPORT DATE</p>
+                                <p style="font-size: 14px; margin: 0;">October 11, 2024</p>
+                            </td>
+                            <td style="width: 50%;">
+                                <p style="font-size: 14px; color: #6366f1; margin: 0 0 5px 0;">REPORT TO</p>
+                                <p style="font-size: 14px; margin: 0 0 5px 0;">John Doe</p>
+                                <p style="font-size: 14px; margin: 0 0 5px 0;">johndoe</p>
+                                <p style="font-size: 14px; margin: 0;">USA</p>
+                            </td>
+                        </tr>
+                    </table>
 
-            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 20px; margin-top: 30px;">
-              <h2 style="color: #4f46e5; font-size: 22px; margin-top: 0;">Activity Summary</h2>
-              <p style="font-size: 16px; color: #666666;">Total Scans: ${/*totalScans*/ '90'}</p>
-              ${progressBar}
-              <p style="font-size: 16px; color: #666666; margin-top: 20px;">Recent Symptoms:</p>
-              <ul style="padding-left: 20px;">
-                ${/*recentSymptoms.map(symptom => `<li style="color: #666666; margin-bottom: 5px;">${symptom}</li>`).join('')*/''}
-              </ul>
-            </div>
+                    <table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px;">
+                        <tr>
+                            <td style="width: 50%;">
+                                <p style="font-size: 14px; color: #6366f1; margin: 0 0 5px 0;">REPORT ID</p>
+                                <p style="font-size: 14px; margin: 0;">HLA1B2C3D4</p>
+                            </td>
+                            <td style="width: 50%;">
+                                <p style="font-size: 14px; color: #6366f1; margin: 0 0 5px 0;">DOCUMENT NO.</p>
+                                <p style="font-size: 14px; margin: 0;">123456789</p>
+                            </td>
+                        </tr>
+                    </table>
 
-            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 20px; margin-top: 30px;">
-              <h2 style="color: #4f46e5; font-size: 22px; margin-top: 0;">Recent Chat History</h2>
-              ${/*}
-              ${chatHistory.map(chat => `
-                <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #e0e7ff;">
-                  <p style="font-size: 14px; color: #888888; margin: 0;">${chat.date}</p>
-                  <p style="font-size: 16px; color: #333333; margin: 5px 0 0 0;">${chat.message}</p>
-                </div>
-              `).join('')}
-              */''}
-            </div>
+                    <h2 style="font-size: 18px; margin-bottom: 20px; color: #4338ca;">Health Summary</h2>
 
-            <div style="background-color: #e0e7ff; border-radius: 10px; padding: 20px; margin-top: 30px;">
-              <h2 style="color: #4f46e5; font-size: 22px; margin-top: 0;">Your Daily Health Tip</h2>
-              <p style="font-size: 16px; color: #333333; font-style: italic;">"${randomTip}"</p>
-            </div>
+                    <table cellpadding="0" cellspacing="0" style="width: 100%; margin-bottom: 30px;">
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff;">
+                                <p style="font-size: 16px; margin: 0;">Total Scans</p>
+                            </td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff; text-align: right;">
+                                <p style="font-size: 16px; margin: 0;">90</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff;">
+                                <p style="font-size: 16px; margin: 0;">Height</p>
+                            </td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff; text-align: right;">
+                                <p style="font-size: 16px; margin: 0;">180 cm</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff;">
+                                <p style="font-size: 16px; margin: 0;">Weight</p>
+                            </td>
+                            <td style="padding: 10px 0; border-bottom: 1px solid #f5f3ff; text-align: right;">
+                                <p style="font-size: 16px; margin: 0;">75 kg</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0;">
+                                <p style="font-size: 16px; margin: 0;">Sex</p>
+                            </td>
+                            <td style="padding: 10px 0; text-align: right;">
+                                <p style="font-size: 16px; margin: 0;">Male</p>
+                            </td>
+                        </tr>
+                    </table>
 
-            <p style="font-size: 16px; color: #666666; line-height: 1.6; margin-top: 30px;">Thank you for using HealthLens to monitor your health. We're here to support you on your wellness journey!</p>
+                    <div style="background-color: #f5f3ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                        <h3 style="color: #4338ca; font-size: 18px; margin: 0 0 10px 0;">Your Daily Health Tip</h3>
+                        <p style="font-size: 16px; margin: 0;">"Get 7-9 hours of sleep for better overall health."</p>
+                    </div>
 
-            <p style="font-size: 16px; color: #666666; line-height: 1.6;">Best regards,<br>The HealthLens Team</p>
-          </div>
-          <div style="background-color: #4f46e5; padding: 20px; text-align: center;">
-            <p style="color: #ffffff; font-size: 14px; margin: 0;">© 2023 HealthLens. All rights reserved.</p>
-          </div>
-        </div>
+                    <div style="background-color: #f5f3ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                        <h3 style="color: #4338ca; font-size: 18px; margin: 0 0 10px 0;">Recent Symptoms</h3>
+                        <ul style="padding: 0 0 0 20px; margin: 0;">
+                            <li style="font-size: 16px; margin-bottom: 5px;">Headache</li>
+                            <li style="font-size: 16px; margin-bottom: 5px;">Fatigue</li>
+                        </ul>
+                    </div>
+
+                    <div style="background-color: #f5f3ff; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                        <h3 style="color: #4338ca; font-size: 18px; margin: 0 0 10px 0;">Recent Chat History</h3>
+                        <div style="margin-bottom: 10px;">
+                            <p style="font-size: 14px; color: #6366f1; margin: 0;">2023-10-10</p>
+                            <p style="font-size: 16px; margin: 5px 0 0 0;">Discussed recent blood test results</p>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <p style="font-size: 14px; color: #6366f1; margin: 0;">2023-10-05</p>
+                            <p style="font-size: 16px; margin: 5px 0 0 0;">Inquired about new diet plan</p>
+                        </div>
+                    </div>
+
+                    <table cellpadding="0" cellspacing="0" style="width: 100%;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <img src="/placeholder.svg?height=40&width=40" alt="HealthLens Icon" style="width: 40px; height: 40px;" />
+                                <h2 style="color: #4338ca; font-size: 24px; margin: 10px 0;">HealthLens</h2>
+                                <p style="font-size: 16px; margin: 0 0 20px 0;">Your personal health companion.</p>
+                                <a href="#" style="display: inline-block; background-color: #6366f1; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-size: 16px; font-weight: bold;">
+                                    Open HealthLens App
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
       </body>
       </html>
     `;
@@ -119,7 +171,7 @@ const sendEmailReport = async (req, res) => {
     const { data, error } = await resend.emails.send({
       from: 'HealthLens <no-reply@healthlens.app>',
       //to: [user.email],
-      to: 'ericgonzalezduro@gmail.com',
+      to: "daniel11ftw@gmail.com",
       subject: 'Your HealthLens Health Report',
       html: emailTemplate,
     });
