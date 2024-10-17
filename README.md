@@ -18,4 +18,4 @@ The contents of this back-end service ensure that the user has continuous access
 
 ## License and Contributing
 
-Please refer to our [main project repository](https://github.com/IBM-Call-for-Codes-2024/frontend) for the license and contribution information. 
+Please refer to our [main project repository](https://github.com/ericfly02/Frontend-HealthLens) for the license and contribution information. 
